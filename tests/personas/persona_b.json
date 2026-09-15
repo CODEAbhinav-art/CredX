@@ -1,0 +1,28 @@
+{
+  "label": "Persona B — Ravi (Gig Worker / Thin File)",
+  "description": "Freelance developer, good average income but high volatility, short history.",
+  "expected_score_range": [580, 670],
+  "expected_risk_band": "Medium",
+
+  "utility_payment_consistency": 0.82,
+  "rent_payment_consistency": 0.75,
+  "avg_payment_delay_days": 5.0,
+  "failed_payment_frequency": 2.0,
+
+  "avg_monthly_income": 45000,
+  "income_volatility": 0.65,
+  "income_consistency": 0.78,
+  "income_trend": 0.1,
+
+  "transaction_success_rate": 0.94,
+  "spending_volatility": 0.55,
+  "recurring_payment_count": 3,
+  "essential_spending_ratio": 0.58,
+  "avg_monthly_transactions": 45,
+
+  "mobile_recharge_regularity": 0.88,
+  "digital_transaction_consistency": 0.80,
+  "months_of_digital_activity": 14,
+
+  "persona_label": "Persona B"
+}

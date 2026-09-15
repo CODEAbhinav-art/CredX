@@ -1,0 +1,28 @@
+{
+  "label": "Persona C — Meena (High Volatility / High Risk)",
+  "description": "Small vendor, inconsistent income, multiple payment failures, low digital activity.",
+  "expected_score_range": [350, 490],
+  "expected_risk_band": "High",
+
+  "utility_payment_consistency": 0.45,
+  "rent_payment_consistency": 0.40,
+  "avg_payment_delay_days": 18.0,
+  "failed_payment_frequency": 7.0,
+
+  "avg_monthly_income": 12000,
+  "income_volatility": 0.90,
+  "income_consistency": 0.55,
+  "income_trend": -0.2,
+
+  "transaction_success_rate": 0.75,
+  "spending_volatility": 1.1,
+  "recurring_payment_count": 1,
+  "essential_spending_ratio": 0.88,
+  "avg_monthly_transactions": 18,
+
+  "mobile_recharge_regularity": 0.55,
+  "digital_transaction_consistency": 0.42,
+  "months_of_digital_activity": 6,
+
+  "persona_label": "Persona C"
+}

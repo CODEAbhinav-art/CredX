@@ -1,0 +1,164 @@
+{
+  "features": [
+    {
+      "name": "utility_payment_consistency",
+      "label": "Utility Payment Consistency",
+      "description": "Percentage of months with on-time electricity, water, and gas payments",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "group": "payment_behaviour",
+      "higher_is_better": true,
+      "business_rationale": "Consistent utility payments demonstrate regular financial commitment and discipline, even for users without a credit card or loan history."
+    },
+    {
+      "name": "rent_payment_consistency",
+      "label": "Rent / EMI Payment Consistency",
+      "description": "Percentage of months with on-time rent or EMI payments",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "group": "payment_behaviour",
+      "higher_is_better": true,
+      "business_rationale": "Rent is often the largest recurring financial obligation for non-homeowners. Consistent rent payment is a strong signal of creditworthiness."
+    },
+    {
+      "name": "avg_payment_delay_days",
+      "label": "Average Payment Delay",
+      "description": "Average number of days payments are made after the due date",
+      "type": "float",
+      "range": [0.0, 90.0],
+      "group": "payment_behaviour",
+      "higher_is_better": false,
+      "business_rationale": "Even small payment delays indicate potential cash flow challenges and reduced reliability."
+    },
+    {
+      "name": "failed_payment_frequency",
+      "label": "Failed Payment Frequency",
+      "description": "Number of failed or bounced payments per year",
+      "type": "float",
+      "range": [0.0, 24.0],
+      "group": "payment_behaviour",
+      "higher_is_better": false,
+      "business_rationale": "Failed payments directly indicate insufficient funds or poor financial planning."
+    },
+    {
+      "name": "avg_monthly_income",
+      "label": "Average Monthly Income",
+      "description": "Mean monthly income in INR over the observed period",
+      "type": "float",
+      "range": [1000.0, 1000000.0],
+      "group": "income_stability",
+      "higher_is_better": true,
+      "business_rationale": "Higher income provides a larger cushion for loan repayment, reducing default risk."
+    },
+    {
+      "name": "income_volatility",
+      "label": "Income Volatility",
+      "description": "Coefficient of variation (CV) of monthly income — measures stability",
+      "type": "float",
+      "range": [0.0, 2.0],
+      "group": "income_stability",
+      "higher_is_better": false,
+      "business_rationale": "High income volatility (common in gig workers) makes future repayment less predictable even if average income is adequate."
+    },
+    {
+      "name": "income_consistency",
+      "label": "Income Consistency",
+      "description": "Percentage of months with positive income (no income gap months)",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "group": "income_stability",
+      "higher_is_better": true,
+      "business_rationale": "Income gaps indicate periods of unemployment or income disruption that increase default risk."
+    },
+    {
+      "name": "income_trend",
+      "label": "Income Trend",
+      "description": "Direction of income change over the past 6 months (-1 declining, 0 stable, +1 growing)",
+      "type": "float",
+      "range": [-1.0, 1.0],
+      "group": "income_stability",
+      "higher_is_better": true,
+      "business_rationale": "Growing income signals improving financial health and lower future default risk."
+    },
+    {
+      "name": "transaction_success_rate",
+      "label": "Transaction Success Rate",
+      "description": "Percentage of attempted transactions that were completed successfully",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "group": "transaction_behaviour",
+      "higher_is_better": true,
+      "business_rationale": "High transaction failure rates indicate insufficient account balance, a leading indicator of financial stress."
+    },
+    {
+      "name": "spending_volatility",
+      "label": "Spending Volatility",
+      "description": "Coefficient of variation of monthly total spending",
+      "type": "float",
+      "range": [0.0, 2.0],
+      "group": "transaction_behaviour",
+      "higher_is_better": false,
+      "business_rationale": "Erratic spending patterns suggest less disciplined financial management."
+    },
+    {
+      "name": "recurring_payment_count",
+      "label": "Recurring Payment Count",
+      "description": "Number of regular subscriptions or EMIs being paid consistently",
+      "type": "float",
+      "range": [0.0, 30.0],
+      "group": "transaction_behaviour",
+      "higher_is_better": true,
+      "business_rationale": "Consistent recurring payments demonstrate financial discipline and reliability. Moderate count (not excessive) is positive."
+    },
+    {
+      "name": "essential_spending_ratio",
+      "label": "Essential Spending Ratio",
+      "description": "Ratio of essential (food, utilities, transport) to total monthly spending",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "group": "transaction_behaviour",
+      "higher_is_better": true,
+      "business_rationale": "Higher essential spending ratio indicates prudent financial prioritization."
+    },
+    {
+      "name": "avg_monthly_transactions",
+      "label": "Monthly Transaction Volume",
+      "description": "Average number of digital transactions per month",
+      "type": "float",
+      "range": [0.0, 1000.0],
+      "group": "transaction_behaviour",
+      "higher_is_better": true,
+      "business_rationale": "Higher transaction volume indicates active financial participation and provides more data for assessment."
+    },
+    {
+      "name": "mobile_recharge_regularity",
+      "label": "Mobile Recharge Regularity",
+      "description": "Percentage of months with consistent mobile prepaid or postpaid payment",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "group": "digital_behaviour",
+      "higher_is_better": true,
+      "business_rationale": "Regular mobile payments are a proxy for consistent financial obligation fulfillment, particularly relevant for new-to-credit users."
+    },
+    {
+      "name": "digital_transaction_consistency",
+      "label": "Digital Transaction Consistency",
+      "description": "Percentage of months with regular UPI/digital payment activity",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "group": "digital_behaviour",
+      "higher_is_better": true,
+      "business_rationale": "Consistent digital financial activity indicates financial participation and provides a data trail for assessment."
+    },
+    {
+      "name": "months_of_digital_activity",
+      "label": "Digital Activity History",
+      "description": "Total number of months of digital transaction history available",
+      "type": "float",
+      "range": [1.0, 120.0],
+      "group": "digital_behaviour",
+      "higher_is_better": true,
+      "business_rationale": "Longer history provides more reliable signals. Very short history (< 6 months) increases uncertainty."
+    }
+  ]
+}
