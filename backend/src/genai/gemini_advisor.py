@@ -52,7 +52,7 @@ class CredXAdvisor:
 
         # Attempt call to Gemini
         if self.client:
-            models_to_try = ["gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.0-flash"]
+            models_to_try = ["gemini-2.5-flash"]
             for model_name in models_to_try:
                 try:
                     response = self.client.models.generate_content(
@@ -67,8 +67,8 @@ class CredXAdvisor:
                         parsed["source"] = f"Gemini ({model_name})"
                         return parsed
                 except Exception as e:
-                    print(f"Gemini API ({model_name}) error: {e}")
-                    continue
+                    print(f"Gemini API ({model_name}) notice: {e}")
+                    break  # Fail fast to intelligent fallback if key/network is unavailable
 
         # If API failed or was unavailable, use intelligent heuristic generation
         return self._generate_fallback_advice(

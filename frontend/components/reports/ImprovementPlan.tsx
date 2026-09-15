@@ -109,11 +109,18 @@ export default function ImprovementPlan({ scoreData }: ImprovementPlanProps) {
               );
             })}
           </div>
-        ) : (
+        ) : scoreData.credx_score >= 800 ? (
           <div style={{ display: "flex", alignItems: "center", gap: 12, color: "var(--green)" }}>
             <CheckCircle size={24} />
             <p style={{ fontSize: 15, fontWeight: 600, margin: 0 }}>
               Your profile is exceptionally strong. Keep up the good work!
+            </p>
+          </div>
+        ) : (
+          <div style={{ display: "flex", alignItems: "center", gap: 12, color: "var(--amber)" }}>
+            <AlertTriangle size={24} />
+            <p style={{ fontSize: 15, fontWeight: 600, margin: 0 }}>
+              Your profile is fair. Focus on improving consistency in digital payments and lowering income volatility to further boost your score.
             </p>
           </div>
         )}

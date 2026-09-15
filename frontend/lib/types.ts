@@ -18,6 +18,7 @@ export interface SubScores {
 }
 
 export interface ScoreRequest {
+  borrower_id?: string;
   // Payment behaviour
   utility_payment_consistency: number;
   rent_payment_consistency: number;

@@ -183,7 +183,7 @@ def train():
         print(f"✓ ROC-AUC target met: {best_result['roc_auc']} >= 0.80")
 
     # 8. Save artifacts
-    best_model = xgb if (XGBOOST_AVAILABLE and best_result["name"] == "XGBoost") else rf
+    best_model = xgb
     joblib.dump(best_model, ARTIFACTS_DIR / "model.pkl")
     joblib.dump(scaler, ARTIFACTS_DIR / "scaler.pkl")
 

@@ -19,6 +19,7 @@ from routes.borrowers import router as borrowers_router
 from routes.scoring import router as scoring_router
 from routes.simulation import router as simulation_router
 from routes.passport import router as passport_router
+from routes.copilot import router as copilot_router
 
 app = FastAPI(
     title="CredX — Alternative Credit Scoring API",
@@ -35,6 +36,7 @@ app = FastAPI(
     * **/api/borrowers**: Pre-loaded personas and custom applicant registration
     * **/api/score**: Full scoring, SHAP explainability, and Gemini AI coaching
     * **/api/simulate**: Interactive What-If score simulator & time-to-approval trajectory
+    * **/api/copilot**: Conversational AI Credit Copilot
     * **/api/passport/pdf/{borrower_id}**: Downloadable ReportLab Alternative Credit Passport PDF
     """,
     version="1.0.0",
@@ -57,6 +59,7 @@ app.include_router(borrowers_router)
 app.include_router(scoring_router)
 app.include_router(simulation_router)
 app.include_router(passport_router)
+app.include_router(copilot_router)
 
 
 @app.on_event("startup")

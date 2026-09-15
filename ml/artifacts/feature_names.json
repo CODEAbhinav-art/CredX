@@ -1,0 +1,18 @@
+[
+  "utility_payment_consistency",
+  "rent_payment_consistency",
+  "avg_payment_delay_days",
+  "failed_payment_frequency",
+  "avg_monthly_income",
+  "income_volatility",
+  "income_consistency",
+  "income_trend",
+  "transaction_success_rate",
+  "spending_volatility",
+  "recurring_payment_count",
+  "essential_spending_ratio",
+  "avg_monthly_transactions",
+  "mobile_recharge_regularity",
+  "digital_transaction_consistency",
+  "months_of_digital_activity"
+]

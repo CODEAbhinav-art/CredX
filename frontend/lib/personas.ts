@@ -4,6 +4,7 @@
 import type { DemoPersona, ScoreRequest } from "./types";
 
 export const PERSONA_A: ScoreRequest = {
+  borrower_id: "B_GIG_01",
   utility_payment_consistency: 0.98,
   rent_payment_consistency: 0.95,
   avg_payment_delay_days: 0.5,
@@ -24,6 +25,7 @@ export const PERSONA_A: ScoreRequest = {
 };
 
 export const PERSONA_B: ScoreRequest = {
+  borrower_id: "B_FREE_02",
   utility_payment_consistency: 0.82,
   rent_payment_consistency: 0.75,
   avg_payment_delay_days: 5.0,
@@ -44,6 +46,7 @@ export const PERSONA_B: ScoreRequest = {
 };
 
 export const PERSONA_C: ScoreRequest = {
+  borrower_id: "B_RURL_03",
   utility_payment_consistency: 0.45,
   rent_payment_consistency: 0.40,
   avg_payment_delay_days: 18.0,

@@ -64,33 +64,28 @@ export default function AssessmentForm({ onSubmit, loading }: AssessmentFormProp
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
                 Average Monthly Income (₹)
               </label>
-              <input 
-                type="number"
-                name="avg_monthly_income"
-                value={formData.avg_monthly_income}
-                onChange={handleChange}
-                className="input-field"
-                min="0"
-                step="1000"
-                required
-              />
+              <input type="number" name="avg_monthly_income" value={formData.avg_monthly_income} onChange={handleChange} className="input-field" min="0" step="1000" required />
             </div>
             <div>
               <label style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
                 <span>Income Consistency</span>
                 <span style={{ color: "var(--blue)" }}>{Math.round(formData.income_consistency * 100)}%</span>
               </label>
-              <input 
-                type="range"
-                name="income_consistency"
-                value={formData.income_consistency}
-                onChange={handleChange}
-                min="0" max="1" step="0.05"
-                style={{ width: "100%" }}
-              />
-              <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4 }}>
-                How regular are your deposits each month?
-              </div>
+              <input type="range" name="income_consistency" value={formData.income_consistency} onChange={handleChange} min="0" max="1" step="0.05" style={{ width: "100%" }} />
+            </div>
+            <div>
+              <label style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
+                <span>Income Volatility</span>
+                <span style={{ color: "var(--blue)" }}>{formData.income_volatility}</span>
+              </label>
+              <input type="range" name="income_volatility" value={formData.income_volatility} onChange={handleChange} min="0" max="2" step="0.1" style={{ width: "100%" }} />
+            </div>
+            <div>
+              <label style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
+                <span>Income Trend</span>
+                <span style={{ color: "var(--blue)" }}>{formData.income_trend}</span>
+              </label>
+              <input type="range" name="income_trend" value={formData.income_trend} onChange={handleChange} min="-1" max="1" step="0.1" style={{ width: "100%" }} />
             </div>
           </div>
         </div>
@@ -108,29 +103,26 @@ export default function AssessmentForm({ onSubmit, loading }: AssessmentFormProp
                 <span>Utility Payment Consistency</span>
                 <span style={{ color: "var(--blue)" }}>{Math.round(formData.utility_payment_consistency * 100)}%</span>
               </label>
-              <input 
-                type="range"
-                name="utility_payment_consistency"
-                value={formData.utility_payment_consistency}
-                onChange={handleChange}
-                min="0" max="1" step="0.05"
-                style={{ width: "100%" }}
-              />
+              <input type="range" name="utility_payment_consistency" value={formData.utility_payment_consistency} onChange={handleChange} min="0" max="1" step="0.05" style={{ width: "100%" }} />
+            </div>
+            <div>
+              <label style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
+                <span>Rent Payment Consistency</span>
+                <span style={{ color: "var(--blue)" }}>{Math.round(formData.rent_payment_consistency * 100)}%</span>
+              </label>
+              <input type="range" name="rent_payment_consistency" value={formData.rent_payment_consistency} onChange={handleChange} min="0" max="1" step="0.05" style={{ width: "100%" }} />
+            </div>
+            <div>
+              <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
+                Average Payment Delay (days)
+              </label>
+              <input type="number" name="avg_payment_delay_days" value={formData.avg_payment_delay_days} onChange={handleChange} className="input-field" min="0" max="90" required />
             </div>
             <div>
               <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
                 Failed Payments (last 6 months)
               </label>
-              <input 
-                type="number"
-                name="failed_payment_frequency"
-                value={formData.failed_payment_frequency}
-                onChange={handleChange}
-                className="input-field"
-                min="0"
-                max="20"
-                required
-              />
+              <input type="number" name="failed_payment_frequency" value={formData.failed_payment_frequency} onChange={handleChange} className="input-field" min="0" max="20" required />
             </div>
           </div>
         </div>
@@ -140,37 +132,61 @@ export default function AssessmentForm({ onSubmit, loading }: AssessmentFormProp
         {/* SECTION 3: Transactions */}
         <div>
           <h3 style={{ fontSize: 15, fontWeight: 700, color: "var(--text-primary)", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontSize: 18 }}>💳</span> Digital Footprint
+            <span style={{ fontSize: 18 }}>💳</span> Transactions & Digital Footprint
           </h3>
           <div style={{ display: "grid", gap: 16 }}>
-            <div>
-              <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
-                Active Digital Months
-              </label>
-              <input 
-                type="number"
-                name="months_of_digital_activity"
-                value={formData.months_of_digital_activity}
-                onChange={handleChange}
-                className="input-field"
-                min="0"
-                max="120"
-                required
-              />
-            </div>
             <div>
               <label style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
                 <span>Transaction Success Rate</span>
                 <span style={{ color: "var(--blue)" }}>{Math.round(formData.transaction_success_rate * 100)}%</span>
               </label>
-              <input 
-                type="range"
-                name="transaction_success_rate"
-                value={formData.transaction_success_rate}
-                onChange={handleChange}
-                min="0" max="1" step="0.05"
-                style={{ width: "100%" }}
-              />
+              <input type="range" name="transaction_success_rate" value={formData.transaction_success_rate} onChange={handleChange} min="0" max="1" step="0.05" style={{ width: "100%" }} />
+            </div>
+            <div>
+              <label style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
+                <span>Spending Volatility</span>
+                <span style={{ color: "var(--blue)" }}>{formData.spending_volatility}</span>
+              </label>
+              <input type="range" name="spending_volatility" value={formData.spending_volatility} onChange={handleChange} min="0" max="2" step="0.1" style={{ width: "100%" }} />
+            </div>
+            <div>
+              <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
+                Recurring Payment Count
+              </label>
+              <input type="number" name="recurring_payment_count" value={formData.recurring_payment_count} onChange={handleChange} className="input-field" min="0" max="30" required />
+            </div>
+            <div>
+              <label style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
+                <span>Essential Spending Ratio</span>
+                <span style={{ color: "var(--blue)" }}>{Math.round(formData.essential_spending_ratio * 100)}%</span>
+              </label>
+              <input type="range" name="essential_spending_ratio" value={formData.essential_spending_ratio} onChange={handleChange} min="0" max="1" step="0.05" style={{ width: "100%" }} />
+            </div>
+            <div>
+              <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
+                Average Monthly Transactions
+              </label>
+              <input type="number" name="avg_monthly_transactions" value={formData.avg_monthly_transactions} onChange={handleChange} className="input-field" min="0" max="1000" required />
+            </div>
+            <div>
+              <label style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
+                <span>Mobile Recharge Regularity</span>
+                <span style={{ color: "var(--blue)" }}>{Math.round(formData.mobile_recharge_regularity * 100)}%</span>
+              </label>
+              <input type="range" name="mobile_recharge_regularity" value={formData.mobile_recharge_regularity} onChange={handleChange} min="0" max="1" step="0.05" style={{ width: "100%" }} />
+            </div>
+            <div>
+              <label style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
+                <span>Digital Transaction Consistency</span>
+                <span style={{ color: "var(--blue)" }}>{Math.round(formData.digital_transaction_consistency * 100)}%</span>
+              </label>
+              <input type="range" name="digital_transaction_consistency" value={formData.digital_transaction_consistency} onChange={handleChange} min="0" max="1" step="0.05" style={{ width: "100%" }} />
+            </div>
+            <div>
+              <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6 }}>
+                Active Digital Months
+              </label>
+              <input type="number" name="months_of_digital_activity" value={formData.months_of_digital_activity} onChange={handleChange} className="input-field" min="0" max="120" required />
             </div>
           </div>
         </div>

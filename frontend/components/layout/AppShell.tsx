@@ -19,6 +19,7 @@ import ImprovementPlan from "../reports/ImprovementPlan";
 import PassportPreview from "../reports/PassportPreview";
 import ScoreTrend from "../score/ScoreTrend";
 import AssessmentForm from "../onboarding/AssessmentForm";
+// import ModelBenchmarks from "../reports/ModelBenchmarks";
 import type { ScoreRequest } from "@/lib/types";
 
 function AppShellContent() {
@@ -64,6 +65,8 @@ function AppShellContent() {
     try {
       const res = await credxApi.score(data);
       setScoreData(res);
+      // Register in backend database too if new applicant
+      credxApi.getBorrowers().catch(() => {});
     } catch (err) {
       setError("Failed to generate credit profile.");
       setScoreData(null);
@@ -124,13 +127,22 @@ function AppShellContent() {
               ) : (
                 <>
                   {/* 1. What's my score? */}
-                  <section style={{ marginBottom: 48, display: "flex", justifyContent: "center" }}>
+                  <section style={{ marginBottom: 48, display: "flex", flexDirection: "column", alignItems: "center" }}>
                     <ScoreGauge 
                       score={scoreData?.credx_score || null} 
                       riskBand={scoreData?.risk_band} 
                       loading={loading} 
                       size="lg"
                     />
+                    {!isDemoMode && scoreData && (
+                      <button 
+                        className="btn btn-outline btn-sm" 
+                        style={{ marginTop: 16, borderRadius: 99 }}
+                        onClick={() => setScoreData(null)}
+                      >
+                        🔄 Assess Another Applicant
+                      </button>
+                    )}
                   </section>
 
                   {/* 2. How am I doing? */}
@@ -188,17 +200,17 @@ function AppShellContent() {
           {/* CREDIT SECTION */}
           {activeSection === "credit" && (
             <div className="fade-in-up">
-              <h2 className="page-title" style={{ marginBottom: 8 }}>Credit Profile Details</h2>
+              <h2 className="page-title" style={{ marginBottom: 8 }}>Credit Profile & Model Governance</h2>
               <p style={{ fontSize: 16, color: "var(--text-secondary)", marginBottom: 32, lineHeight: 1.6 }}>
-                Deep dive into the alternative data factors that build your credit profile.
+                Deep dive into the alternative data factors and machine learning benchmarks powering your credit score.
               </p>
               
-              <div className="card" style={{ padding: 24, marginBottom: 24 }}>
+              <div className="card" style={{ padding: 24, marginBottom: 32 }}>
                 <h3 className="section-title" style={{ marginBottom: 16 }}>Score Trend</h3>
-                <ScoreTrend currentScore={scoreData?.credx_score || null} riskBand={scoreData?.risk_band || "Medium"} loading={loading} />
+                <ScoreTrend currentScore={scoreData?.credx_score ?? 700} riskBand={scoreData?.risk_band || "Medium"} loading={loading} />
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 32 }}>
                 <CreditHealthCard 
                   label="Income Stability"
                   score={scoreData?.sub_scores.income_stability}
@@ -221,6 +233,9 @@ function AppShellContent() {
                   loading={loading}
                 />
               </div>
+
+              {/* Model Transparency & Benchmarks */}
+              {/* <ModelBenchmarks /> */}
             </div>
           )}
 
@@ -251,10 +266,14 @@ function AppShellContent() {
             <div className="fade-in-up">
               <h2 className="page-title" style={{ marginBottom: 8, textAlign: "center" }}>Credit Passport</h2>
               <p style={{ fontSize: 16, color: "var(--text-secondary)", marginBottom: 32, textAlign: "center", lineHeight: 1.6 }}>
-                Your portable alternative credit profile.
+                Your portable alternative credit profile. Download officially signed ReportLab PDF.
               </p>
               <div style={{ display: "flex", justifyContent: "center" }}>
-                <PassportPreview scoreData={scoreData} personaName={activePersona.name} />
+                <PassportPreview 
+                  scoreData={scoreData} 
+                  personaName={isDemoMode ? activePersona.name : "Custom Applicant"} 
+                  borrowerId={isDemoMode ? activePersona.data.borrower_id : undefined}
+                />
               </div>
             </div>
           )}

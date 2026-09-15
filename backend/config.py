@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     backend_port: int = Field(default=8000, env="BACKEND_PORT")
     backend_cors_origin: str = Field(default="http://localhost:3000", env="BACKEND_CORS_ORIGIN")
 
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
+    model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "extra": "ignore"}
 
 
 @lru_cache()

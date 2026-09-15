@@ -18,17 +18,18 @@ export default function CreditHealthCard({
   loading = false,
 }: CreditHealthCardProps) {
   
-  // Grade logic for component scores (0-100)
+  // Grade logic for component scores (300-900 scale from backend)
   const getGrade = (s?: number | null) => {
     if (s === null || s === undefined) return { label: "Unassessed", color: "var(--text-muted)" };
-    if (s >= 75) return { label: "Strong", color: "var(--green)" };
-    if (s >= 50) return { label: "Good", color: "var(--amber)" };
+    if (s >= 700) return { label: "Strong", color: "var(--green)" };
+    if (s >= 550) return { label: "Good", color: "var(--amber)" };
     return { label: "Needs Attention", color: "var(--red)" };
   };
 
   const grade = getGrade(score);
   const displayScore = score !== null && score !== undefined ? score : "—";
-  const pct = score !== null && score !== undefined ? score : 0;
+  // Convert 300-900 to 0-100% for progress bar
+  const pct = score !== null && score !== undefined ? Math.round(((score - 300) / 600) * 100) : 0;
 
   return (
     <div className="card" style={{ padding: "24px 20px" }}>
@@ -55,7 +56,7 @@ export default function CreditHealthCard({
             <span style={{ fontSize: 24, fontWeight: 800, color: grade.color }}>
               {displayScore}
             </span>
-            <span style={{ fontSize: 13, color: "var(--text-muted)", fontWeight: 500 }}>/ 100</span>
+            <span style={{ fontSize: 13, color: "var(--text-muted)", fontWeight: 500 }}>/ 900</span>
             <span style={{ 
               fontSize: 12, 
               fontWeight: 700, 

@@ -16,7 +16,7 @@ from backend.llm.gemini_provider import GeminiProvider
 from backend.llm.fallback import FallbackProvider
 from backend.llm.provider import LLMProvider
 
-from backend.routers import score, simulate, copilot
+from backend.routers import score, simulate, copilot, passport
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
@@ -98,16 +98,17 @@ app.add_middleware(
 )
 
 # Routers
-app.include_router(score.router, prefix="/api/v1")
-app.include_router(simulate.router, prefix="/api/v1")
-app.include_router(copilot.router, prefix="/api/v1")
+app.include_router(score.router, prefix="/api")
+app.include_router(simulate.router, prefix="/api")
+app.include_router(copilot.router, prefix="/api")
+app.include_router(passport.router, prefix="/api")
 
 
 # ────────────────────────────────────────────────
 # Health check
 # ────────────────────────────────────────────────
 
-@app.get("/health", response_model=HealthResponse, tags=["System"])
+@app.get("/api/health", response_model=HealthResponse, tags=["System"])
 async def health_check() -> HealthResponse:
     return HealthResponse(
         status="ok",

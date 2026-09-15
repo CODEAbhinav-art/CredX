@@ -36,9 +36,9 @@ class SHAPContributor(BaseModel):
 # ────────────────────────────────────────────────
 
 class SubScores(BaseModel):
-    income_stability: int = Field(ge=300, le=900)
-    payment_reliability: int = Field(ge=300, le=900)
-    digital_behaviour: int = Field(ge=300, le=900)
+    income_stability: int = Field(ge=0, description="Income stability sub-score")
+    payment_reliability: int = Field(ge=0, description="Payment reliability sub-score")
+    digital_behaviour: int = Field(ge=0, description="Digital behaviour sub-score")
 
 
 # ────────────────────────────────────────────────
@@ -86,6 +86,7 @@ class ScoreResponse(BaseModel):
     top_positive_contributors: list[SHAPContributor]
     top_negative_contributors: list[SHAPContributor]
     base_shap_value: float
+    gemini_advisor: Optional[dict] = None
     disclaimer: str = "CredX Score is an alternative credit health indicator. It is not a CIBIL score and does not represent a formal credit assessment. Approval likelihood is a model estimate only."
 
     model_config = {"use_enum_values": True}

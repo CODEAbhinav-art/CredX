@@ -119,6 +119,17 @@ def test_pdf_passport():
     print("[PASS] Alternative Credit Passport PDF Check Passed")
 
 
+def test_copilot():
+    print("\nTesting POST /api/copilot...")
+    res = client.post("/api/copilot", json={"question": "Why is my score this way?", "score_context": {"credx_score": 750, "risk_band": "Low"}})
+    assert res.status_code == 200, f"Copilot failed: {res.text}"
+    data = res.json()
+    assert "answer" in data
+    assert len(data["key_points"]) > 0
+    print(f"Copilot Answer: {data['answer'][:60]}...")
+    print("[PASS] AI Copilot Check Passed")
+
+
 if __name__ == "__main__":
     print("=" * 60)
     print("RUNNING COMPLETE CREDX BACKEND VERIFICATION SUITE")
@@ -130,6 +141,7 @@ if __name__ == "__main__":
     test_score()
     test_simulation()
     test_pdf_passport()
+    test_copilot()
     print("\n" + "=" * 60)
     print("ALL API ENDPOINT TESTS PASSED WITH 100% SUCCESS!")
     print("=" * 60)

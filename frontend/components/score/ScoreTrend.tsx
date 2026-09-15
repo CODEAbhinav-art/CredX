@@ -82,7 +82,7 @@ export default function ScoreTrend({ currentScore, riskBand, loading }: ScoreTre
               color: "var(--text-primary)",
               boxShadow: "var(--shadow-md)",
             }}
-            formatter={(value: number) => [`${value}`, "CredX Score"]}
+            formatter={(value: any) => [`${value}`, "CredX Score"] as [string, string]}
           />
           <Line
             type="monotone"
