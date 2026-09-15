@@ -1,0 +1,54 @@
+# Environment & Secrets
+.env
+*.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.Python
+pip-wheel-metadata/
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+.conda/
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# ML Model Artifacts (large binary files — regenerate with train.py)
+backend/models/*.pkl
+backend/models/*.joblib
+backend/models/*.json
+backend/models/*.npy
+
+# Data files (raw/processed CSVs — may be large)
+# Comment out if you want to include sample data
+# backend/data/raw/
+# backend/data/processed/
+
+# IDE & OS
+.idea/
+.vscode/
+*.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test outputs
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
