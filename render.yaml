@@ -18,5 +18,7 @@ services:
         value: false
       - key: BACKEND_CORS_ORIGIN
         value: "*"
+      - key: RENDER_BACKEND_URL
+        value: https://credx-backend-yfy9.onrender.com
     healthCheckPath: /api/health
     autoDeploy: true
