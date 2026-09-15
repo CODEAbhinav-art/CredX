@@ -1,55 +1,54 @@
+# Environment & Secrets
+.env
+*.env
+.env.*
+
 # Python
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
-.Python
+*$py.class
+*.so
 *.egg
 *.egg-info/
 dist/
 build/
 .eggs/
-*.so
-.venv/
+.Python
+pip-wheel-metadata/
+
+# Virtual Environments
 venv/
 env/
 ENV/
+.venv/
+.conda/
 
-# Environment
-.env
-*.env.local
-
-# ML artifacts (large files — commit only final model)
-ml/artifacts/*.pkl
-ml/artifacts/*.joblib
-
-# Jupyter
+# Jupyter Notebooks checkpoints
 .ipynb_checkpoints/
-*.ipynb
 
-# Node / Next.js
-node_modules/
-.next/
-out/
-frontend/.next/
-frontend/node_modules/
-frontend/out/
+# ML Model Artifacts (large binary files — regenerate with train.py)
+backend/models/*.pkl
+backend/models/*.joblib
+backend/models/*.json
+backend/models/*.npy
 
-# Coverage
-htmlcov/
-.coverage
-.pytest_cache/
-.mypy_cache/
+# Data files (raw/processed CSVs — may be large)
+# Comment out if you want to include sample data
+# backend/data/raw/
+# backend/data/processed/
 
-# IDE
-.vscode/
+# IDE & OS
 .idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
+.vscode/
+*.DS_Store
 Thumbs.db
 
-# Data (large generated files — keep schema, exclude large CSVs if needed)
-# data/synthetic_dataset.csv  ← actually commit this for reproducibility
+# Logs
+*.log
+logs/
+
+# Test outputs
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
