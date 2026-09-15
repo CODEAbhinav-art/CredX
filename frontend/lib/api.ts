@@ -182,16 +182,15 @@ export const credxApi = {
 
   downloadPassport: async (borrowerId?: string, profile?: any): Promise<void> => {
     try {
-      let response: Response;
-      if (borrowerId && borrowerId.startsWith("B_")) {
-        response = await fetch(`${API_BASE}/api/passport/pdf/${borrowerId}`);
-      } else {
-        response = await fetch(`${API_BASE}/api/passport/pdf`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(profile || { borrower_id: "B_CUSTOM_APPLICANT" }),
-        });
-      }
+      const payload = {
+        borrower_id: borrowerId || "B_CUSTOM_APPLICANT",
+        ...(profile || {}),
+      };
+      const response = await fetch(`${API_BASE}/api/passport/pdf`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
       if (!response.ok) throw new Error(`PDF Download failed with HTTP ${response.status}`);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
