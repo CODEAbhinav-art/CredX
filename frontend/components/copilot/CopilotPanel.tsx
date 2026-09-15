@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Send, AlertCircle } from "lucide-react";
+import { credxApi } from "@/lib/api";
 import type { ScoreResponse } from "@/lib/types";
 
 // The shape our mock/future backend uses
@@ -43,17 +44,28 @@ export default function CopilotPanel({ scoreContext }: CopilotPanelProps) {
   }, [messages, loading]);
 
   useEffect(() => {
+    let initialText = "Hello! Please complete your assessment first so I can analyze your credit profile.";
+    let keyPoints: string[] | undefined = undefined;
+
+    if (scoreContext) {
+      if (scoreContext.gemini_advisor) {
+        initialText = scoreContext.gemini_advisor.summary;
+        keyPoints = scoreContext.gemini_advisor.plan_30_days;
+      } else {
+        initialText = "Hello! I'm CredX AI. I can help you understand your alternative credit profile and suggest ways to improve.";
+      }
+    }
+
     setMessages([
       {
         id: "init",
         role: "ai",
-        text: scoreContext 
-          ? "Hello! I'm CredX AI. I can help you understand your alternative credit profile and suggest ways to improve."
-          : "Hello! Please complete your assessment first so I can analyze your credit profile.",
+        text: initialText,
+        keyPoints,
       },
     ]);
     setError(null);
-  }, [scoreContext?.credx_score]);
+  }, [scoreContext?.credx_score, scoreContext?.gemini_advisor]);
 
   async function send(text: string) {
     if (!text.trim() || noContext || loading) return;
@@ -69,19 +81,31 @@ export default function CopilotPanel({ scoreContext }: CopilotPanelProps) {
     setLoading(true);
     setError(null);
 
-    // Mock response for now (since backend is out of scope)
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const res = await credxApi.copilot({ question: text.trim(), score_context: scoreContext });
       setMessages(prev => [
         ...prev,
         {
           id: (Date.now() + 1).toString(),
           role: "ai",
-          text: "This is a mock response from CredX AI. Once the Gemini API is connected, this will provide contextual answers based on your SHAP values.",
+          text: res.answer,
+          keyPoints: res.key_points,
+          isDisclaimer: res.is_ai_generated === false || res.disclaimer.includes("Mock")
+        }
+      ]);
+    } catch (err) {
+      setMessages(prev => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          role: "ai",
+          text: "I'm having trouble connecting to the brain right now. Please try again later.",
           isDisclaimer: true
         }
       ]);
-    }, 1500);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -96,6 +120,13 @@ export default function CopilotPanel({ scoreContext }: CopilotPanelProps) {
               <div className="chat-bubble-ai">
                 <div style={{ fontSize: 11, fontWeight: 700, color: "var(--blue)", marginBottom: 4, letterSpacing: "0.04em", textTransform: "uppercase" }}>CredX AI</div>
                 <p style={{ margin: "0 0 6px" }}>{msg.text}</p>
+                {msg.keyPoints && msg.keyPoints.length > 0 && (
+                  <ul style={{ margin: "8px 0 0", paddingLeft: "16px", color: "var(--text-secondary)", fontSize: 13 }}>
+                    {msg.keyPoints.map((kp, idx) => (
+                      <li key={idx} style={{ marginBottom: 4 }}>{kp}</li>
+                    ))}
+                  </ul>
+                )}
                 {msg.isDisclaimer && (
                   <div style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11, color: "var(--amber)", marginTop: 8 }}>
                     <AlertCircle size={12} />

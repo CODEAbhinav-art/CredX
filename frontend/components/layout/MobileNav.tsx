@@ -24,7 +24,9 @@ export default function MobileNav({ activeSection, onNavigate }: MobileNavProps)
       bottom: 0,
       left: 0,
       right: 0,
-      background: "var(--bg-card)",
+      background: "rgba(255, 255, 255, 0.85)",
+      backdropFilter: "blur(12px)",
+      WebkitBackdropFilter: "blur(12px)",
       borderTop: "1px solid var(--border)",
       display: "flex",
       justifyContent: "space-around",
@@ -53,10 +55,12 @@ export default function MobileNav({ activeSection, onNavigate }: MobileNavProps)
             }}
           >
             <div style={{ 
-              padding: "4px 12px", 
+              padding: "4px 16px", 
               borderRadius: 99, 
               background: isActive ? "var(--blue-faint)" : "transparent",
-              transition: "background 0.2s" 
+              color: isActive ? "var(--blue)" : "inherit",
+              transform: isActive ? "scale(1.05)" : "scale(1)",
+              transition: "all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)" 
             }}>
               {item.icon}
             </div>

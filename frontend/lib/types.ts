@@ -42,6 +42,14 @@ export interface ScoreRequest {
   persona_label?: string;
 }
 
+export interface GeminiAdvisorResponse {
+  summary: string;
+  plan_30_days: string[];
+  plan_60_days: string[];
+  plan_90_days: string[];
+  disclaimer: string;
+}
+
 export interface ScoreResponse {
   credx_score: number;
   risk_band: RiskBand;
@@ -51,6 +59,7 @@ export interface ScoreResponse {
   top_negative_contributors: SHAPContributor[];
   base_shap_value: number;
   disclaimer: string;
+  gemini_advisor?: GeminiAdvisorResponse;
 }
 
 export interface SimulateRequest {

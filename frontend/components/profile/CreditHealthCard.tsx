@@ -40,7 +40,15 @@ export default function CreditHealthCard({
       </div>
       
       {loading ? (
-        <div className="skeleton" style={{ width: "100%", height: 36, marginTop: 16 }} />
+        <div style={{ marginTop: 12 }}>
+          <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+            <div className="skeleton" style={{ width: 60, height: 28 }} />
+            <div className="skeleton" style={{ width: 80, height: 24, marginLeft: "auto", borderRadius: 6 }} />
+          </div>
+          <div className="skeleton" style={{ width: "90%", height: 16, marginTop: 12 }} />
+          <div className="skeleton" style={{ width: "60%", height: 16, marginTop: 6 }} />
+          <div className="skeleton" style={{ width: "100%", height: 6, marginTop: 16, borderRadius: 99 }} />
+        </div>
       ) : (
         <>
           <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginTop: 12 }}>

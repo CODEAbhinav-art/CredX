@@ -18,6 +18,8 @@ import SimulatorPanel from "../simulator/SimulatorPanel";
 import ImprovementPlan from "../reports/ImprovementPlan";
 import PassportPreview from "../reports/PassportPreview";
 import ScoreTrend from "../score/ScoreTrend";
+import AssessmentForm from "../onboarding/AssessmentForm";
+import type { ScoreRequest } from "@/lib/types";
 
 function AppShellContent() {
   const searchParams = useSearchParams();
@@ -44,7 +46,7 @@ function AppShellContent() {
       setLoading(true);
       setError(null);
       try {
-        const res = await credxApi.assess(activePersona.data);
+        const res = await credxApi.score(activePersona.data);
         setScoreData(res);
       } catch (err) {
         setError("Failed to load credit profile. Is the backend running?");
@@ -55,6 +57,20 @@ function AppShellContent() {
     }
     loadProfile();
   }, [activePersonaId, isDemoMode]);
+
+  const handleLiveAssessment = async (data: ScoreRequest) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await credxApi.score(data);
+      setScoreData(res);
+    } catch (err) {
+      setError("Failed to generate credit profile.");
+      setScoreData(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const toggleDemoMode = () => {
     const newDemo = !isDemoMode;
@@ -101,63 +117,71 @@ function AppShellContent() {
           {/* HOME SECTION */}
           {activeSection === "home" && (
             <div className="fade-in-up">
-              {/* 1. What's my score? */}
-              <section style={{ marginBottom: 48, display: "flex", justifyContent: "center" }}>
-                <ScoreGauge 
-                  score={scoreData?.credx_score || null} 
-                  riskBand={scoreData?.risk_band} 
-                  loading={loading} 
-                  size="lg"
-                />
-              </section>
-
-              {/* 2. How am I doing? */}
-              <section style={{ marginBottom: 48 }}>
-                <h3 className="section-title" style={{ marginBottom: 16 }}>Your Credit Health</h3>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                  <CreditHealthCard 
-                    label="Income Stability"
-                    score={scoreData?.sub_scores.income_stability}
-                    icon="💰"
-                    description="Consistency of earnings"
-                    loading={loading}
-                  />
-                  <CreditHealthCard 
-                    label="Payment Reliability"
-                    score={scoreData?.sub_scores.payment_reliability}
-                    icon="✅"
-                    description="On-time payment behaviour"
-                    loading={loading}
-                  />
-                  <CreditHealthCard 
-                    label="Transaction Behaviour"
-                    score={scoreData?.sub_scores.digital_behaviour}
-                    icon="💳"
-                    description="Spending and balance patterns"
-                    loading={loading}
-                  />
+              {!isDemoMode && !scoreData ? (
+                <div style={{ padding: "24px 0 48px" }}>
+                  <AssessmentForm onSubmit={handleLiveAssessment} loading={loading} />
                 </div>
-              </section>
+              ) : (
+                <>
+                  {/* 1. What's my score? */}
+                  <section style={{ marginBottom: 48, display: "flex", justifyContent: "center" }}>
+                    <ScoreGauge 
+                      score={scoreData?.credx_score || null} 
+                      riskBand={scoreData?.risk_band} 
+                      loading={loading} 
+                      size="lg"
+                    />
+                  </section>
 
-              {/* 3. Why? */}
-              <section style={{ marginBottom: 48 }}>
-                <h3 className="section-title" style={{ marginBottom: 16 }}>Why Your Score?</h3>
-                <div className="card" style={{ padding: 24, marginBottom: 24 }}>
-                  <ContributionChart 
-                    positives={scoreData?.top_positive_contributors || []}
-                    negatives={scoreData?.top_negative_contributors || []}
-                    loading={loading}
-                  />
-                </div>
-              </section>
+                  {/* 2. How am I doing? */}
+                  <section className="fade-in-up delay-100" style={{ marginBottom: 48 }}>
+                    <h3 className="section-title" style={{ marginBottom: 16 }}>Your Credit Health</h3>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                      <CreditHealthCard 
+                        label="Income Stability"
+                        score={scoreData?.sub_scores.income_stability}
+                        icon="💰"
+                        description="Consistency of earnings"
+                        loading={loading}
+                      />
+                      <CreditHealthCard 
+                        label="Payment Reliability"
+                        score={scoreData?.sub_scores.payment_reliability}
+                        icon="✅"
+                        description="On-time payment behaviour"
+                        loading={loading}
+                      />
+                      <CreditHealthCard 
+                        label="Transaction Behaviour"
+                        score={scoreData?.sub_scores.digital_behaviour}
+                        icon="💳"
+                        description="Spending and balance patterns"
+                        loading={loading}
+                      />
+                    </div>
+                  </section>
 
-              {/* 4. AI Copilot (Ask CredX) */}
-              <section style={{ marginBottom: 48 }}>
-                <h3 className="section-title" style={{ marginBottom: 16 }}>Ask CredX</h3>
-                <div className="card" style={{ height: 400, display: "flex", flexDirection: "column" }}>
-                  <CopilotPanel scoreContext={scoreData} />
-                </div>
-              </section>
+                  {/* 3. Why? */}
+                  <section className="fade-in-up delay-200" style={{ marginBottom: 48 }}>
+                    <h3 className="section-title" style={{ marginBottom: 16 }}>Why Your Score?</h3>
+                    <div className="card" style={{ padding: 24, marginBottom: 24 }}>
+                      <ContributionChart 
+                        positives={scoreData?.top_positive_contributors || []}
+                        negatives={scoreData?.top_negative_contributors || []}
+                        loading={loading}
+                      />
+                    </div>
+                  </section>
+
+                  {/* 4. AI Copilot (Ask CredX) */}
+                  <section className="fade-in-up delay-300" style={{ marginBottom: 48 }}>
+                    <h3 className="section-title" style={{ marginBottom: 16 }}>Ask CredX</h3>
+                    <div className="card" style={{ height: 400, display: "flex", flexDirection: "column" }}>
+                      <CopilotPanel scoreContext={scoreData} />
+                    </div>
+                  </section>
+                </>
+              )}
             </div>
           )}
 

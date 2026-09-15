@@ -134,9 +134,10 @@ body {
 }
 
 .card-hover {
-  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
 }
 .card-hover:hover {
+  transform: translateY(-2px);
   box-shadow: var(--shadow-md);
   border-color: var(--border-strong);
 }
@@ -316,12 +317,16 @@ body {
 
 /* ─── Animations ─────────────────────────────────────────────── */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 .fade-in-up {
-  animation: fadeInUp 0.4s ease both;
+  animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
 
 @keyframes scoreArcFill {
   from { stroke-dashoffset: 503; }
@@ -512,10 +517,11 @@ input[type=range]::-webkit-slider-thumb:hover {
   100% { background-position:  600px 0; }
 }
 .skeleton {
-  background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+  background: linear-gradient(90deg, var(--bg-muted) 25%, #E2E8F0 50%, var(--bg-muted) 75%);
   background-size: 1200px 100%;
-  animation: shimmer 1.4s infinite linear;
-  border-radius: 6px;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: var(--radius-md);
+  opacity: 0.7;
 }
 
 /* ─── Landing page ───────────────────────────────────────────── */

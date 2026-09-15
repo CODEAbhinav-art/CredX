@@ -85,10 +85,10 @@ export default function ContributionChart({ positives, negatives, loading }: Con
 
   if (loading) {
     return (
-      <div style={{ space: 12 }}>
-        {[0,1,2,3].map(i => (
-          <div key={i} style={{ padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
-            <div className="skeleton" style={{ height: 12, width: "60%", marginBottom: 8, borderRadius: 4 }} />
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {[0, 1, 2, 3].map(i => (
+          <div key={i} style={{ padding: "8px 0", borderBottom: "1px solid var(--border)" }}>
+            <div className="skeleton" style={{ height: 14, width: "40%", marginBottom: 8, borderRadius: 4 }} />
             <div className="skeleton" style={{ height: 6, width: "100%", borderRadius: 4 }} />
           </div>
         ))}
