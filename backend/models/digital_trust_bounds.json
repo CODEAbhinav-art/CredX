@@ -1,0 +1,22 @@
+{
+  "upi_transactions_per_month": {
+    "min": 0.0,
+    "max": 107.3
+  },
+  "upi_months_active": {
+    "min": 0.0,
+    "max": 33.0
+  },
+  "mobile_years": {
+    "min": 2.0,
+    "max": 15.0
+  },
+  "mobile_wallet_used": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "recharge_frequency_per_month": {
+    "min": 0.5,
+    "max": 3.1
+  }
+}
